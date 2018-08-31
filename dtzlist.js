@@ -78,9 +78,9 @@ else{
 			case "FONT":
 				if(sig1){
 					if(list.length)
-						list=list+"</li>";
-					else
-						list+="<li>"+bdate+"</li>";
+						list=list+"\n</li>";
+					else if(bdate.length)
+						list+="<li>"+bdate+"\n</li>";
 					list=list+"<li>"+node.innerText+":";
 					sig2=true;
 				}
@@ -102,7 +102,7 @@ else{
 		}
 		node=node.nextElementSibling;
 	}
-	list=list+"</li>";
+	list=list+"\n</li>";
 	list=list.replace(/[\s]+:/g,":").replace(/[\s]+;/g,";")
 }
 resfield.innerHTML=list;
