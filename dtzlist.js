@@ -63,7 +63,47 @@ if(found){
 	list+="<li>\n</li><li>【总结：】\n</li><li>[/color][/b]\n</li><li>[/spoiler]\n</li>";
 }
 else{
-	list="<li>[spoiler=FFF组【"+bdate+"—"+edate+"】]-- 楼 -- 当天顶帖 （） --【】\n</li><li>[b][color=#6666FF]星期一：\n</li><li>星期二：\n</li><li>星期三：\n</li><li>星期四：\n</li><li>星期五：\n</li><li>星期六：\n</li><li>星期日：\n</li><li>\n</li><li>【总结：】\n</li><li>[/color][/b]\n</li><li>[/spoiler]\n</li>";
+	node=document.getElementById("postmessage_48534402").firstElementChild;
+	while (node.tagName!=="HR"){
+		node=node.nextElementSibling;
+	}
+	list=""
+	var sig1=false
+	var sig2=false
+	while(node!==null){
+		switch(node.tagName){
+			case "HR":
+				sig1=true;
+				break;
+			case "FONT":
+				if(sig1){
+					if(list.length)
+						list=list+"</li>";
+					else
+						list+="<li>"+bdate+"</li>";
+					list=list+"<li>"+node.innerText+":";
+					sig2=true;
+				}
+				sig1=false;
+				break;
+			case "STRONG":	
+				if(node.innerText.indexOf("星期")>=0){
+					if(sig2)
+						sig2=false;
+					else
+						list+=";"
+				}
+				break;
+			case "A":
+				list+=node.href.match(/\d+/)[0]+" "
+				break;
+			default:
+				break;
+		}
+		node=node.nextElementSibling;
+	}
+	list=list+"</li>";
+	list=list.replace(/[\s]+:/g,":").replace(/[\s]+;/g,";")
 }
 resfield.innerHTML=list;
 document.getElementById("res").style="display:inline";
