@@ -93,6 +93,9 @@ else{
 					else
 						list+=";"
 				}
+				else if(node.children[0].tagName=="A"){
+					list+=node.children[0].href.match(/\d+/)[0]+" "
+				}
 				break;
 			case "A":
 				list+=node.href.match(/\d+/)[0]+" "
